@@ -3,6 +3,7 @@ package lv.pineapple.zole;
 //Class describing a standard playing card.
 // Options for cards are only available for legal Zole cards.
 class Card implements Comparable<Card> {
+
     //Enum of card suits in the order of the strongest when trumps.
     public enum Suit {
         DIAMOND, HEART, SPADE, CLUBS
@@ -28,16 +29,18 @@ class Card implements Comparable<Card> {
     //Card type and suit instance variables.
     private Suit suit;
     private Type type;
+    private int strength = 0;
+    private boolean trump = false;
 
     //Constructor. Takes card type and suit.
     public Card(Type type, Suit suit) {
         this.suit = suit;
         this.type = type;
-    }
-
-    //Getter method for points.
-    public int getPoints() {
-        return type.getPoints();
+        //Check whether the card is a trump.
+        if (suit == Suit.DIAMOND || type.compareTo(Type.ACE) > 0) trump = true;
+        //Set the strength of the card.
+        strength += type.ordinal();
+        if (trump) strength += Type.values().length + suit.ordinal();
     }
 
     //Override toString() method to show the name of the card.
@@ -52,11 +55,6 @@ class Card implements Comparable<Card> {
 
     //Compare the strength of two cards.
     public int compareTo(Card otherCard) {
-       /* if(strength>otherCard.strength)return 1;
-        else if(this.strength<otherCard.strength)return -1;
-        else return -1;*/
-        return 0;
+        return this.strength - otherCard.strength;
     }
 }
-
-

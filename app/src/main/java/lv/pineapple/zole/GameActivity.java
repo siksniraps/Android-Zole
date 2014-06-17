@@ -10,10 +10,9 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         TextView output = (TextView) findViewById(R.id.output);
-        Deck deck = new Deck();
-        output.setText(deck.toString());
+        TextView hand = (TextView) findViewById(R.id.myHand);
+
     }
 
 }
